@@ -13,14 +13,14 @@ lower_limit = d;
 upper_limit = 3 * d;
 
 % Parametrii distribuției normale
-mv = (lower_limit + upper_limit) / 2; % media
+mu = (lower_limit + upper_limit) / 2; % media
 sigma = (upper_limit - lower_limit) / 6; % abaterea standard (aproximează 99.7% în interval)
 
 % Generăm numere din distribuția normală trunchiată pe [lower_limit, upper_limit]
 V = zeros(1, n);
 for i = 1:n
     while true
-        value = mv + sigma * randn; % Generare normală
+        value = mu + sigma * randn; % Generare normală
         if value >= lower_limit && value <= upper_limit
             V(i) = value;
             break;
