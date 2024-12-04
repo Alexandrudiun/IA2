@@ -8,7 +8,7 @@ function [mv, sigma2, Me] = ab311(n)
     Me = median(v);
         
     figure;
-    histogram(vector, 'FaceColor', 'green');
+    histogram(v, 'FaceColor', 'green');
     grid on;
     title('Histogramă a setului de date generat');
     xlabel('Valori');
