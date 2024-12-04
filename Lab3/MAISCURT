@@ -1,0 +1,76 @@
+function [mv, sigma2, Me] = grupa(n)
+    if n < 20
+
+        error('n trebuie să fie ≥ 20.');
+
+    end
+
+    
+
+
+    d = day(datetime('now'));
+
+    
+
+    % Parametrii distribuției normale
+
+    mean_value = 2 * d; % Media
+
+    std_dev = (3 * d - d) / 6; % Abaterea standard (aproximativ 6σ pentru [d, 3d])
+
+
+    vector = normrnd(mean_value, std_dev, [1, n]);
+
+    
+
+    % Calcularea mediei, estimării erorii standard și medianei
+
+    mv = mean(vector); % Media aritmetică
+
+    sigma2 = var(vector); % Estimarea erorii standard (varianta)
+
+    Me = median(vector); % Mediana
+
+    
+
+    % Afișarea histogramei
+
+    figure;
+
+    histogram(vector, 'FaceColor', 'green');
+
+    grid on;
+
+    title('Histogramă a setului de date generat');
+
+    xlabel('Valori');
+
+    ylabel('Frecvență');
+
+    legend('Set de date');
+
+  
+
+    conf_level = 0.9973; % Nivelul de încredere
+
+    z_score = norminv((1 + conf_level) / 2); % Punctul critic z
+
+    margin_error = z_score * (std_dev / sqrt(n));
+
+    conf_interval = [mv - margin_error, mv + margin_error];
+
+    
+
+    % Afișarea în linia de comandă
+
+    fprintf('Media aritmetică: %.4f\n', mv);
+
+    fprintf('Estimarea erorii standard (sigma^2): %.4f\n', sigma2);
+
+    fprintf('Mediana: %.4f\n', Me);
+
+    fprintf('Interval de încredere (%.4f): [%.4f, %.4f]\n', conf_level, conf_interval(1), conf_interval(2));
+    
+
+    
+end
